@@ -114,9 +114,10 @@
             padding-top: 0;
             padding-bottom: 0;
             border-left: 2px solid #a855f7;
-            background: rgba(168, 85, 247, 0.05);
+            background: #1a1a1a; /* Fondo sólido para máximo contraste */
         }
         .info-panel.active {
+            max-height: 500px; /* Altura fija y generosa para asegurar visibilidad */
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
         }
@@ -160,7 +161,7 @@
                         <p class="text-gray-400">Ritmos que tomarán el control de tu cuerpo.</p>
                     </div>
                     <div id="music-info" class="info-panel px-6 text-left">
-                        <h4 class="text-xl font-bold mb-2 text-purple-300">Ritmos Latinos con DJ Luis</h4>
+                        <h4 class="text-xl font-bold mb-2 text-purple-400">Ritmos Latinos con DJ Luis</h4>
                         <p class="text-gray-300">El maestro de ceremonias, DJ Luis, y nuestro staff de organización con Javi y Juanje, te guiarán por un viaje sonoro con los ritmos más sensuales de la salsa y la bachata. Una noche para sentir la música en la piel.</p>
                     </div>
                 </div>
@@ -173,7 +174,7 @@
                         <p class="text-gray-400">Un espacio transformado para la ocasión.</p>
                     </div>
                     <div id="location-info" class="info-panel px-6 text-left">
-                         <h4 class="text-xl font-bold mb-2 text-purple-300">Un Escenario Mágico</h4>
+                         <h4 class="text-xl font-bold mb-2 text-purple-400">Un Escenario Mágico</h4>
                          <p class="text-gray-300">Nos vemos en un lugar icónico: Pipote Playa, en Almuñécar. El escenario perfecto junto al mar para una noche inolvidable.</p>
                     </div>
                 </div>
@@ -186,7 +187,7 @@
                         <p class="text-gray-400">Sorpresas que desafiarán tus sentidos.</p>
                     </div>
                     <div id="experience-info" class="info-panel px-6 text-left">
-                        <h4 class="text-xl font-bold mb-2 text-purple-300">Elegancia y Misterio</h4>
+                        <h4 class="text-xl font-bold mb-2 text-purple-400">Elegancia y Misterio</h4>
                         <p class="text-gray-300">Inspirada en la elegancia de nuestra anfitriona, la noche promete ser un encuentro lleno de misterio y conexiones. Viste para impresionar y déjate llevar por el encanto de lo inesperado.</p>
                     </div>
                 </div>
@@ -239,19 +240,16 @@
         function toggleInfo(topic) {
             const allPanels = document.querySelectorAll('.info-panel');
             const targetPanel = document.getElementById(topic + '-info');
+            const isAlreadyActive = targetPanel.classList.contains('active');
 
+            // Cierra todos los paneles
             allPanels.forEach(panel => {
-                if (panel !== targetPanel && panel.classList.contains('active')) {
-                    panel.classList.remove('active');
-                    panel.style.maxHeight = null;
-                }
+                panel.classList.remove('active');
             });
 
-            targetPanel.classList.toggle('active');
-            if (targetPanel.style.maxHeight) {
-                targetPanel.style.maxHeight = null;
-            } else {
-                targetPanel.style.maxHeight = targetPanel.scrollHeight + "px";
+            // Si el panel clickeado no estaba activo, lo abre.
+            if (!isAlreadyActive) {
+                targetPanel.classList.add('active');
             }
         }
 
@@ -280,13 +278,18 @@
 
         }, 1000);
 
-        // Lógica para el Banner de Cookies y carga de página
+        // Lógica de carga de página y Banner de Cookies
+        // Se deshabilita la restauración de scroll del navegador de forma prioritaria.
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
         window.addEventListener('load', function() {
-            // Asegura que la página cargue en la parte superior
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-            window.scrollTo(0,0);
+            // Se fuerza el scroll a la parte superior. Un pequeño retardo asegura que 
+            // esta acción anule cualquier comportamiento de auto-scroll del navegador.
+            setTimeout(() => {
+                window.scrollTo(0,0);
+            }, 10); 
             
             const banner = document.getElementById('cookie-banner');
             const acceptBtn = document.getElementById('accept-cookies');
