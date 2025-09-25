@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secretos de una Noche - Salsa & Bachata</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+        }
+        /* Clase para animaciones de entrada */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        #countdown > div {
+            background: rgba(0,0,0,0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        #countdown > div span {
+            display: block;
+        }
+        #countdown .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        #countdown .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px #a855f7, 0 0 20px #a855f7;
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 25px #c084fc, 0 0 35px #c084fc;
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px #a855f7, 0 0 20px #a855f7;
+            }
+        }
+        .pulse-animation {
+            animation: pulse-glow 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Sección 1: Héroe / Portada -->
+    <section id="hero" class="h-screen w-full flex flex-col justify-center items-center text-center p-4 relative overflow-hidden bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1596496181848-301754db102c?q=80&w=2070&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black opacity-60 z-10"></div>
+        <div class="z-20">
+            <p class="text-lg md:text-xl mb-2 reveal-on-scroll">Bailando se entiende la gente presenta</p>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tighter mb-4 reveal-on-scroll" style="transition-delay: 100ms;">SECRETOS DE UNA NOCHE</h1>
+            <p class="text-lg md:text-2xl mb-2 reveal-on-scroll" style="transition-delay: 300ms;">La noche de Salsa & Bachata más tentadora.</p>
+            <!-- Countdown Timer -->
+            <div id="countdown" class="reveal-on-scroll" style="transition-delay: 400ms;">
+                <div><span id="days" class="number">00</span><span class="label">Días</span></div>
+                <div><span id="hours" class="number">00</span><span class="label">Horas</span></div>
+                <div><span id="minutes" class="number">00</span><span class="label">Minutos</span></div>
+                <div><span id="seconds" class="number">00</span><span class="label">Segundos</span></div>
+            </div>
+            <a href="#intro" class="inline-block bg-white text-black font-bold py-3 px-8 rounded-full text-lg reveal-on-scroll" style="transition-delay: 500ms;">DESCUBRE MÁS</a>
+        </div>
+        <div class="absolute bottom-10 z-20 animate-bounce">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </div>
+    </section>
+
+    <!-- Sección 2: Introducción Interactiva -->
+    <section id="intro" class="min-h-screen w-full py-20 px-4 flex flex-col justify-center items-center">
+        <div class="max-w-4xl text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 reveal-on-scroll">¿Qué te espera?</h2>
+            <p class="text-xl md:text-2xl text-gray-300 mb-12 reveal-on-scroll" style="transition-delay: 200ms;">Elige un elemento para desvelar un secreto de la noche.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: Música -->
+                <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 400ms;" onclick="showInfo('music')">
+                    <div class="text-5xl mb-4">🎵</div>
+                    <h3 class="text-2xl font-semibold mb-2">La Música</h3>
+                    <p class="text-gray-400">Ritmos que tomarán el control de tu cuerpo.</p>
+                </div>
+                <!-- Card 2: Lugar -->
+                <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 600ms;" onclick="showInfo('location')">
+                    <div class="text-5xl mb-4">📍</div>
+                    <h3 class="text-2xl font-semibold mb-2">El Lugar</h3>
+                    <p class="text-gray-400">Un espacio transformado para la ocasión.</p>
+                </div>
+                <!-- Card 3: Experiencia -->
+                <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 800ms;" onclick="showInfo('experience')">
+                    <div class="text-5xl mb-4">✨</div>
+                    <h3 class="text-2xl font-semibold mb-2">La Experiencia</h3>
+                    <p class="text-gray-400">Sorpresas que desafiarán tus sentidos.</p>
+                </div>
+            </div>
+
+            <div id="info-display" class="mt-12 p-8 border border-dashed border-gray-600 rounded-2xl min-h-[150px] flex items-center justify-center transition-opacity duration-500 opacity-0">
+                <p class="text-lg text-gray-400">Haz clic en una de las cartas...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: El Gran Final / CTA -->
+    <section id="final" class="min-h-screen w-full py-20 px-4 flex flex-col justify-center items-center text-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517448810626-1153835c60b5?q=80&w=2070&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+        <div class="relative z-10 max-w-3xl">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 reveal-on-scroll text-shadow">La cita es ineludible.</h2>
+            <p class="text-5xl md:text-7xl font-bold text-purple-400 my-8 tracking-widest reveal-on-scroll text-shadow" style="transition-delay: 200ms;">ESTE SÁBADO<br>27 SEPTIEMBRE</p>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 reveal-on-scroll text-shadow" style="transition-delay: 400ms;">A partir de las 21:00 en Pipote Playa, Almuñécar. </p>
+            <div class="mt-8 reveal-on-scroll" style="transition-delay: 600ms;">
+                <span class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-4 px-12 rounded-full text-2xl pulse-animation">
+                    ENTRADA GRATUITA
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Lógica para la animación de scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        const elementsToReveal = document.querySelectorAll('.reveal-on-scroll');
+        elementsToReveal.forEach(el => observer.observe(el));
+
+        // Lógica para las tarjetas interactivas
+        const infoContent = {
+            music: {
+                title: 'Ritmos Latinos con DJ Luis',
+                description: 'El maestro de ceremonias, DJ Luis, y nuestro staff de organización con Javi y Juanje, te guiarán por un viaje sonoro con los ritmos más sensuales de la salsa y la bachata. Una noche para sentir la música en la piel.'
+            },
+            location: {
+                title: 'Un Escenario Mágico',
+                description: 'Nos vemos en un lugar icónico: Pipote Playa, en Almuñécar. El escenario perfecto junto al mar para una noche inolvidable.'
+            },
+            experience: {
+                title: 'Elegancia y Misterio',
+                description: 'Inspirada en la elegancia de nuestra anfitriona, la noche promete ser un encuentro lleno de misterio y conexiones. Viste para impresionar y déjate llevar por el encanto de lo inesperado.'
+            }
+        };
+
+        const infoDisplay = document.getElementById('info-display');
+
+        function showInfo(topic) {
+            infoDisplay.style.opacity = 0;
+            setTimeout(() => {
+                infoDisplay.innerHTML = `
+                    <div class="text-left">
+                        <h4 class="text-2xl font-bold mb-2 text-purple-300">${infoContent[topic].title}</h4>
+                        <p class="text-gray-300">${infoContent[topic].description}</p>
+                    </div>
+                `;
+                infoDisplay.style.opacity = 1;
+            }, 300);
+        }
+
+        // Lógica para el Countdown Timer
+        const countdownDate = new Date("Sep 27, 2025 21:00:00").getTime();
+
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Evita mostrar valores negativos si la página se carga después de la fecha
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<div class='text-2xl font-bold text-shadow'>¡LA FIESTA HA COMENZADO!</div>";
+                return;
+            }
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+
+        }, 1000);
+    </script>
+</body>
+</html>
+
+
