@@ -106,6 +106,20 @@
         .cookie-banner.show {
             transform: translateY(0);
         }
+        /* Estilos para los paneles de información desplegables */
+        .info-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.5s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-left: 2px solid #a855f7;
+            background: rgba(168, 85, 247, 0.05);
+        }
+        .info-panel.active {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -124,7 +138,7 @@
                 <div><span id="minutes" class="number">00</span><span class="label">Minutos</span></div>
                 <div><span id="seconds" class="number">00</span><span class="label">Segundos</span></div>
             </div>
-            <a href="#intro" class="inline-block bg-white text-black font-bold py-3 px-8 rounded-full text-lg reveal-on-scroll" style="transition-delay: 500ms;">DESCUBRE MÁS</a>
+            <button onclick="scrollToIntro()" class="inline-block bg-white text-black font-bold py-3 px-8 rounded-full text-lg reveal-on-scroll" style="transition-delay: 500ms;">DESCUBRE MÁS</button>
         </div>
         <div class="absolute bottom-10 z-20 animate-bounce">
             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -133,33 +147,49 @@
 
     <!-- Sección 2: Introducción Interactiva -->
     <section id="intro" class="w-full py-20 px-4 flex flex-col justify-center items-center">
-        <div class="max-w-4xl text-center">
+        <div class="max-w-4xl w-full text-center">
             <h2 class="text-3xl md:text-5xl font-bold mb-6 reveal-on-scroll">¿Qué te espera?</h2>
             <p class="text-xl md:text-2xl text-gray-300 mb-8 md:mb-12 reveal-on-scroll" style="transition-delay: 200ms;">Elige un elemento para desvelar un secreto de la noche.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+            <div class="w-full space-y-4">
                 <!-- Card 1: Música -->
-                <div class="card rounded-2xl p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 400ms;" onclick="showInfo('music')">
-                    <div class="text-5xl mb-4">🎵</div>
-                    <h3 class="text-2xl font-semibold mb-2">La Música</h3>
-                    <p class="text-gray-400">Ritmos que tomarán el control de tu cuerpo.</p>
+                <div class="rounded-2xl overflow-hidden">
+                    <div class="card p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 400ms;" onclick="toggleInfo('music')">
+                        <div class="text-5xl mb-4">🎵</div>
+                        <h3 class="text-2xl font-semibold mb-2">La Música</h3>
+                        <p class="text-gray-400">Ritmos que tomarán el control de tu cuerpo.</p>
+                    </div>
+                    <div id="music-info" class="info-panel px-6 text-left">
+                        <h4 class="text-xl font-bold mb-2 text-purple-300">Ritmos Latinos con DJ Luis</h4>
+                        <p class="text-gray-300">El maestro de ceremonias, DJ Luis, y nuestro staff de organización con Javi y Juanje, te guiarán por un viaje sonoro con los ritmos más sensuales de la salsa y la bachata. Una noche para sentir la música en la piel.</p>
+                    </div>
                 </div>
-                <!-- Card 2: Lugar -->
-                <div class="card rounded-2xl p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 600ms;" onclick="showInfo('location')">
-                    <div class="text-5xl mb-4">📍</div>
-                    <h3 class="text-2xl font-semibold mb-2">El Lugar</h3>
-                    <p class="text-gray-400">Un espacio transformado para la ocasión.</p>
-                </div>
-                <!-- Card 3: Experiencia -->
-                <div class="card rounded-2xl p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 800ms;" onclick="showInfo('experience')">
-                    <div class="text-5xl mb-4">✨</div>
-                    <h3 class="text-2xl font-semibold mb-2">La Experiencia</h3>
-                    <p class="text-gray-400">Sorpresas que desafiarán tus sentidos.</p>
-                </div>
-            </div>
 
-            <div id="info-display" class="mt-12 p-8 border border-dashed border-gray-600 rounded-2xl min-h-[150px] flex items-center justify-center transition-opacity duration-500 opacity-0">
-                <p class="text-lg text-gray-400">Haz clic en una de las cartas...</p>
+                <!-- Card 2: Lugar -->
+                <div class="rounded-2xl overflow-hidden">
+                     <div class="card p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 600ms;" onclick="toggleInfo('location')">
+                        <div class="text-5xl mb-4">📍</div>
+                        <h3 class="text-2xl font-semibold mb-2">El Lugar</h3>
+                        <p class="text-gray-400">Un espacio transformado para la ocasión.</p>
+                    </div>
+                    <div id="location-info" class="info-panel px-6 text-left">
+                         <h4 class="text-xl font-bold mb-2 text-purple-300">Un Escenario Mágico</h4>
+                         <p class="text-gray-300">Nos vemos en un lugar icónico: Pipote Playa, en Almuñécar. El escenario perfecto junto al mar para una noche inolvidable.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Experiencia -->
+                <div class="rounded-2xl overflow-hidden">
+                    <div class="card p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 800ms;" onclick="toggleInfo('experience')">
+                        <div class="text-5xl mb-4">✨</div>
+                        <h3 class="text-2xl font-semibold mb-2">La Experiencia</h3>
+                        <p class="text-gray-400">Sorpresas que desafiarán tus sentidos.</p>
+                    </div>
+                    <div id="experience-info" class="info-panel px-6 text-left">
+                        <h4 class="text-xl font-bold mb-2 text-purple-300">Elegancia y Misterio</h4>
+                        <p class="text-gray-300">Inspirada en la elegancia de nuestra anfitriona, la noche promete ser un encuentro lleno de misterio y conexiones. Viste para impresionar y déjate llevar por el encanto de lo inesperado.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -200,37 +230,29 @@
         const elementsToReveal = document.querySelectorAll('.reveal-on-scroll');
         elementsToReveal.forEach(el => observer.observe(el));
 
-        // Lógica para las tarjetas interactivas
-        const infoContent = {
-            music: {
-                title: 'Ritmos Latinos con DJ Luis',
-                description: 'El maestro de ceremonias, DJ Luis, y nuestro staff de organización con Javi y Juanje, te guiarán por un viaje sonoro con los ritmos más sensuales de la salsa y la bachata. Una noche para sentir la música en la piel.'
-            },
-            location: {
-                title: 'Un Escenario Mágico',
-                description: 'Nos vemos en un lugar icónico: Pipote Playa, en Almuñécar. El escenario perfecto junto al mar para una noche inolvidable.'
-            },
-            experience: {
-                title: 'Elegancia y Misterio',
-                description: 'Inspirada en la elegancia de nuestra anfitriona, la noche promete ser un encuentro lleno de misterio y conexiones. Viste para impresionar y déjate llevar por el encanto de lo inesperado.'
+        // Función para scroll suave
+        function scrollToIntro() {
+            document.getElementById('intro').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Lógica para los paneles de información
+        function toggleInfo(topic) {
+            const allPanels = document.querySelectorAll('.info-panel');
+            const targetPanel = document.getElementById(topic + '-info');
+
+            allPanels.forEach(panel => {
+                if (panel !== targetPanel && panel.classList.contains('active')) {
+                    panel.classList.remove('active');
+                    panel.style.maxHeight = null;
+                }
+            });
+
+            targetPanel.classList.toggle('active');
+            if (targetPanel.style.maxHeight) {
+                targetPanel.style.maxHeight = null;
+            } else {
+                targetPanel.style.maxHeight = targetPanel.scrollHeight + "px";
             }
-        };
-
-        const infoDisplay = document.getElementById('info-display');
-
-        function showInfo(topic) {
-            infoDisplay.style.opacity = 0;
-            setTimeout(() => {
-                infoDisplay.innerHTML = `
-                    <div class="text-left w-full">
-                        <h4 class="text-2xl font-bold mb-2 text-purple-300">${infoContent[topic].title}</h4>
-                        <p class="text-gray-300">${infoContent[topic].description}</p>
-                    </div>
-                `;
-                infoDisplay.style.opacity = 1;
-                // Hacemos scroll para que la información sea visible en la parte superior
-                infoDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 300);
         }
 
         // Lógica para el Countdown Timer
@@ -245,7 +267,6 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Evita mostrar valores negativos si la página se carga después de la fecha
             if (distance < 0) {
                 clearInterval(countdownFunction);
                 document.getElementById("countdown").innerHTML = "<div class='text-2xl font-bold text-shadow'>¡LA FIESTA HA COMENZADO!</div>";
@@ -259,9 +280,9 @@
 
         }, 1000);
 
-        // Lógica para el Banner de Cookies
+        // Lógica para el Banner de Cookies y carga de página
         window.addEventListener('load', function() {
-            // Corrección para asegurar que la página cargue siempre en la parte superior
+            // Asegura que la página cargue en la parte superior
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
@@ -270,14 +291,12 @@
             const banner = document.getElementById('cookie-banner');
             const acceptBtn = document.getElementById('accept-cookies');
 
-            // Si el consentimiento no ha sido guardado, mostrar el banner
             if (!localStorage.getItem('cookieConsent')) {
                 setTimeout(() => {
                     banner.classList.add('show');
-                }, 1500); // Pequeño retraso para no ser intrusivo al cargar
+                }, 1500);
             }
 
-            // Al hacer clic en aceptar, guardar preferencia y ocultar banner
             acceptBtn.addEventListener('click', function() {
                 localStorage.setItem('cookieConsent', 'true');
                 banner.classList.remove('show');
