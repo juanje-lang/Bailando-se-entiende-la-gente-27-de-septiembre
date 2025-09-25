@@ -127,9 +127,9 @@
     <section id="intro" class="min-h-screen w-full py-20 px-4 flex flex-col justify-center items-center">
         <div class="max-w-4xl text-center">
             <h2 class="text-3xl md:text-5xl font-bold mb-6 reveal-on-scroll">¿Qué te espera?</h2>
-            <p class="text-xl md:text-2xl text-gray-300 mb-12 reveal-on-scroll" style="transition-delay: 200ms;">Elige un elemento para desvelar un secreto de la noche.</p>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 md:mb-12 reveal-on-scroll" style="transition-delay: 200ms;">Elige un elemento para desvelar un secreto de la noche.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
                 <!-- Card 1: Música -->
                 <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 400ms;" onclick="showInfo('music')">
                     <div class="text-5xl mb-4">🎵</div>
@@ -220,6 +220,8 @@
                     </div>
                 `;
                 infoDisplay.style.opacity = 1;
+                // Hacemos scroll para que la información sea visible de forma centrada
+                infoDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         }
 
@@ -251,6 +253,12 @@
 
         // Lógica para el Banner de Cookies
         window.addEventListener('load', function() {
+            // Corrección para asegurar que la página cargue siempre en la parte superior
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            window.scrollTo(0,0);
+            
             const banner = document.getElementById('cookie-banner');
             const acceptBtn = document.getElementById('accept-cookies');
 
@@ -270,4 +278,6 @@
     </script>
 </body>
 </html>
+
+
 
