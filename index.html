@@ -89,11 +89,19 @@
             padding: 1.5rem;
             z-index: 1000;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
+            text-align: center;
             transform: translateY(100%);
             transition: transform 0.5s ease-in-out;
+        }
+        @media (min-width: 768px) {
+            .cookie-banner {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
         }
         .cookie-banner.show {
             transform: translateY(0);
@@ -124,26 +132,26 @@
     </section>
 
     <!-- Sección 2: Introducción Interactiva -->
-    <section id="intro" class="min-h-screen w-full py-20 px-4 flex flex-col justify-center items-center">
+    <section id="intro" class="w-full py-20 px-4 flex flex-col justify-center items-center">
         <div class="max-w-4xl text-center">
             <h2 class="text-3xl md:text-5xl font-bold mb-6 reveal-on-scroll">¿Qué te espera?</h2>
             <p class="text-xl md:text-2xl text-gray-300 mb-8 md:mb-12 reveal-on-scroll" style="transition-delay: 200ms;">Elige un elemento para desvelar un secreto de la noche.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
                 <!-- Card 1: Música -->
-                <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 400ms;" onclick="showInfo('music')">
+                <div class="card rounded-2xl p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 400ms;" onclick="showInfo('music')">
                     <div class="text-5xl mb-4">🎵</div>
                     <h3 class="text-2xl font-semibold mb-2">La Música</h3>
                     <p class="text-gray-400">Ritmos que tomarán el control de tu cuerpo.</p>
                 </div>
                 <!-- Card 2: Lugar -->
-                <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 600ms;" onclick="showInfo('location')">
+                <div class="card rounded-2xl p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 600ms;" onclick="showInfo('location')">
                     <div class="text-5xl mb-4">📍</div>
                     <h3 class="text-2xl font-semibold mb-2">El Lugar</h3>
                     <p class="text-gray-400">Un espacio transformado para la ocasión.</p>
                 </div>
                 <!-- Card 3: Experiencia -->
-                <div class="card rounded-2xl p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 800ms;" onclick="showInfo('experience')">
+                <div class="card rounded-2xl p-6 md:p-8 text-center cursor-pointer reveal-on-scroll" style="transition-delay: 800ms;" onclick="showInfo('experience')">
                     <div class="text-5xl mb-4">✨</div>
                     <h3 class="text-2xl font-semibold mb-2">La Experiencia</h3>
                     <p class="text-gray-400">Sorpresas que desafiarán tus sentidos.</p>
@@ -173,8 +181,8 @@
 
     <!-- Banner de Cookies -->
     <div id="cookie-banner" class="cookie-banner">
-        <p class="text-sm md:text-base">Utilizamos cookies de terceros para mejorar la experiencia. Al continuar, aceptas su uso.</p>
-        <button id="accept-cookies" class="bg-white text-black font-bold py-2 px-6 rounded-full text-sm">ACEPTAR</button>
+        <p class="text-sm md:text-base">Utilizamos cookies para mejorar tu experiencia. Al continuar navegando, aceptas su uso.</p>
+        <button id="accept-cookies" class="bg-white text-black font-bold py-2 px-6 rounded-full text-sm whitespace-nowrap">ENTENDIDO</button>
     </div>
 
     <script>
@@ -214,14 +222,14 @@
             infoDisplay.style.opacity = 0;
             setTimeout(() => {
                 infoDisplay.innerHTML = `
-                    <div class="text-left">
+                    <div class="text-left w-full">
                         <h4 class="text-2xl font-bold mb-2 text-purple-300">${infoContent[topic].title}</h4>
                         <p class="text-gray-300">${infoContent[topic].description}</p>
                     </div>
                 `;
                 infoDisplay.style.opacity = 1;
-                // Hacemos scroll para que la información sea visible de forma centrada
-                infoDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Hacemos scroll para que la información sea visible en la parte superior
+                infoDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 300);
         }
 
@@ -278,6 +286,4 @@
     </script>
 </body>
 </html>
-
-
 
