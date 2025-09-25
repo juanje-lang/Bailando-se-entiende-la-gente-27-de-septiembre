@@ -78,6 +78,26 @@
         .pulse-animation {
             animation: pulse-glow 2.5s infinite ease-in-out;
         }
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(5px);
+            color: #f0f0f0;
+            padding: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.5s ease-in-out;
+        }
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -151,6 +171,12 @@
         </div>
     </section>
 
+    <!-- Banner de Cookies -->
+    <div id="cookie-banner" class="cookie-banner">
+        <p class="text-sm md:text-base">Utilizamos cookies de terceros para mejorar la experiencia. Al continuar, aceptas su uso.</p>
+        <button id="accept-cookies" class="bg-white text-black font-bold py-2 px-6 rounded-full text-sm">ACEPTAR</button>
+    </div>
+
     <script>
         // Lógica para la animación de scroll
         const observer = new IntersectionObserver((entries) => {
@@ -222,8 +248,26 @@
             document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
 
         }, 1000);
+
+        // Lógica para el Banner de Cookies
+        window.addEventListener('load', function() {
+            const banner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('accept-cookies');
+
+            // Si el consentimiento no ha sido guardado, mostrar el banner
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    banner.classList.add('show');
+                }, 1500); // Pequeño retraso para no ser intrusivo al cargar
+            }
+
+            // Al hacer clic en aceptar, guardar preferencia y ocultar banner
+            acceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'true');
+                banner.classList.remove('show');
+            });
+        });
     </script>
 </body>
 </html>
-
 
